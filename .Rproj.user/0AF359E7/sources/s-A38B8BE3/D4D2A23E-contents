@@ -1,0 +1,5 @@
+install.packages('mlr')
+install.packages('caret')
+install.packages('h2o')
+install.packages('mxnet')
+install.packages('sparklyr')

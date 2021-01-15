@@ -1,0 +1,12 @@
+Package: bootha
+Type: Package
+Title: Bootstrapping for Hawkes type point processes
+Version: 1.0
+Date: 2020-04-27
+Author: Jacob Stark-Ostergaard
+Maintainer: Jacob Stark-Ostergaard <ostergaard@hum.ku.dk>
+Description: Bootstrapping for Hawkes type point processes
+License: GPL (>= 2)
+Depends: Rcpp (>= 1.0.1)
+Imports: parallel
+LinkingTo: Rcpp, RcppArmadillo

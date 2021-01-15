@@ -1,0 +1,218 @@
+[
+    {
+        "file": "/Users/jacob/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Source/R/packages/bootha/src/exp_gradient.cpp",
+        "file_last_write": 1608196713.0,
+        "definitions": [
+            {
+                "usr": "c:@F@exp_gradient#$@N@arma@S@Col>#d#d#S0_#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "exp_gradient(arma::vec, double, arma::vec)",
+                "file": "/Users/jacob/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Source/R/packages/bootha/src/exp_gradient.cpp",
+                "line": 13,
+                "column": 11
+            }
+        ]
+    },
+    {
+        "file": "/Users/jacob/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Source/R/packages/bootha/src/exp_hessian.cpp",
+        "file_last_write": 1608197773.0,
+        "definitions": [
+            {
+                "usr": "c:@F@exp_hessian#$@N@arma@S@Col>#d#d#S0_#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "exp_hessian(arma::vec, double, arma::vec)",
+                "file": "/Users/jacob/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Source/R/packages/bootha/src/exp_hessian.cpp",
+                "line": 13,
+                "column": 11
+            }
+        ]
+    },
+    {
+        "file": "/Users/jacob/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Source/R/packages/bootha/src/fib.cpp",
+        "file_last_write": 1608303734.0,
+        "definitions": [
+            {
+                "usr": "c:@F@g#d#$@N@arma@S@Col>#d#d#d#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "g(double, arma::vec, double, double)",
+                "file": "/Users/jacob/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Source/R/packages/bootha/src/fib.cpp",
+                "line": 17,
+                "column": 8
+            },
+            {
+                "usr": "c:@F@dg#d#$@N@arma@S@Col>#d#d#d#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "dg(double, arma::vec, double, double)",
+                "file": "/Users/jacob/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Source/R/packages/bootha/src/fib.cpp",
+                "line": 24,
+                "column": 8
+            },
+            {
+                "usr": "c:@F@fib#$@N@arma@S@Mat>#d#$@N@arma@S@Col>#d#b#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "fib(arma::mat, arma::vec, bool)",
+                "file": "/Users/jacob/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Source/R/packages/bootha/src/fib.cpp",
+                "line": 31,
+                "column": 11
+            },
+            {
+                "usr": "c:@F@exp_fib#$@N@arma@S@Mat>#d#$@N@arma@S@Col>#d#S1_#S1_#b#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "exp_fib(arma::mat, arma::vec, arma::vec, arma::vec, bool)",
+                "file": "/Users/jacob/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Source/R/packages/bootha/src/fib.cpp",
+                "line": 61,
+                "column": 11
+            }
+        ]
+    },
+    {
+        "file": "/Users/jacob/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Source/R/packages/bootha/src/intensity.cpp",
+        "file_last_write": 1607003616.0,
+        "definitions": [
+            {
+                "usr": "c:@F@intensity#$@N@arma@S@Col>#d#S0_#S0_#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "intensity(arma::vec, arma::vec, arma::vec)",
+                "file": "/Users/jacob/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Source/R/packages/bootha/src/intensity.cpp",
+                "line": 17,
+                "column": 11
+            },
+            {
+                "usr": "c:@F@integrated_intensity#$@N@arma@S@Col>#d#S0_#S0_#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "integrated_intensity(arma::vec, arma::vec, arma::vec)",
+                "file": "/Users/jacob/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Source/R/packages/bootha/src/intensity.cpp",
+                "line": 56,
+                "column": 11
+            }
+        ]
+    },
+    {
+        "file": "/Users/jacob/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Source/R/packages/bootha/src/interpol.cpp",
+        "file_last_write": 1606741932.0,
+        "definitions": [
+            {
+                "usr": "c:@F@interpol_aux#$@N@arma@S@Mat>#d#$@N@arma@S@Col>#d#b#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "interpol_aux(arma::mat, arma::vec, bool)",
+                "file": "/Users/jacob/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Source/R/packages/bootha/src/interpol.cpp",
+                "line": 12,
+                "column": 11
+            },
+            {
+                "usr": "c:@F@interpol#$@N@arma@S@Mat>#d#$@N@Rcpp@S@Nullable>#I#S1_#b#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "interpol(arma::mat, Rcpp::Nullable<NumericVector>, Rcpp::Nullable<NumericVector>, bool)",
+                "file": "/Users/jacob/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Source/R/packages/bootha/src/interpol.cpp",
+                "line": 82,
+                "column": 11
+            }
+        ]
+    },
+    {
+        "file": "/Users/jacob/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Source/R/packages/bootha/src/kernels.cpp",
+        "file_last_write": 1607000473.0,
+        "definitions": [
+            {
+                "usr": "c:@F@exp_kernel#$@N@arma@S@Col>#d#d#d#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "exp_kernel(arma::vec, double, double)",
+                "file": "/Users/jacob/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Source/R/packages/bootha/src/kernels.cpp",
+                "line": 12,
+                "column": 11
+            },
+            {
+                "usr": "c:@F@pow_kernel#$@N@arma@S@Col>#d#d#d#d#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "pow_kernel(arma::vec, double, double, double)",
+                "file": "/Users/jacob/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Source/R/packages/bootha/src/kernels.cpp",
+                "line": 19,
+                "column": 11
+            }
+        ]
+    },
+    {
+        "file": "/Users/jacob/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Source/R/packages/bootha/src/log_likelihood.cpp",
+        "file_last_write": 1606816582.0,
+        "definitions": [
+            {
+                "usr": "c:@F@log_lik#$@N@arma@S@Col>#d#d#S0_#d#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "log_lik(arma::vec, double, arma::vec, double)",
+                "file": "/Users/jacob/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Source/R/packages/bootha/src/log_likelihood.cpp",
+                "line": 15,
+                "column": 8
+            }
+        ]
+    },
+    {
+        "file": "/Users/jacob/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Source/R/packages/bootha/src/rib.cpp",
+        "file_last_write": 1608296153.0,
+        "definitions": [
+            {
+                "usr": "c:@F@f#d#$@N@arma@S@Col>#d#d#d#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "f(double, arma::vec, double, double)",
+                "file": "/Users/jacob/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Source/R/packages/bootha/src/rib.cpp",
+                "line": 19,
+                "column": 8
+            },
+            {
+                "usr": "c:@F@df#d#$@N@arma@S@Col>#d#d#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "df(double, arma::vec, double)",
+                "file": "/Users/jacob/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Source/R/packages/bootha/src/rib.cpp",
+                "line": 27,
+                "column": 8
+            },
+            {
+                "usr": "c:@F@rib#$@N@arma@S@Col>#d#S0_#d#b#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "rib(arma::vec, arma::vec, double, bool)",
+                "file": "/Users/jacob/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Source/R/packages/bootha/src/rib.cpp",
+                "line": 34,
+                "column": 11
+            },
+            {
+                "usr": "c:@F@exp_rib#$@N@arma@S@Col>#d#S0_#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "exp_rib(arma::vec, arma::vec)",
+                "file": "/Users/jacob/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Source/R/packages/bootha/src/rib.cpp",
+                "line": 76,
+                "column": 11
+            }
+        ]
+    },
+    {
+        "file": "/Users/jacob/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Source/R/packages/bootha/src/test.cpp",
+        "file_last_write": 1606747472.0,
+        "definitions": [
+            {
+                "usr": "c:@F@testfun#$@N@arma@S@Col>#d#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "testfun(arma::vec)",
+                "file": "/Users/jacob/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Source/R/packages/bootha/src/test.cpp",
+                "line": 24,
+                "column": 11
+            }
+        ]
+    }
+]

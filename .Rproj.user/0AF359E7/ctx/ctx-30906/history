@@ -1,0 +1,290 @@
+library(bootha)
+library(misc)
+misc::clean_up()
+set.seed(1234)
+dji <- read.csv("~/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Source/R/packages/bootha/data/DJI.csv")
+dji$Date = as.Date(dji$Date)
+dji$log.return = c(NA,diff(log(dji$Close)))
+date.from = as.Date("1994-01-01")
+date.to = as.Date("2010-12-31")
+idx.dji = dji$Date>date.from & dji$Date < date.to
+idx = c(1,5,7,8)
+dji.tmp = dji[idx.dji,idx]
+pfc = dji.tmp
+names(pfc) = c("date", "close.dji", "volume.dji", "log.return.dji")
+qts = quantile(pfc$log.return, probs = c(.01,.99), na.rm = TRUE)
+qts = quantile(pfc$log.return, probs = c(.1,.9), na.rm = TRUE)
+idx = which(pfc$log.return < qts[1] | pfc$log.return > qts[2])
+x = as.numeric(pfc$date[idx])
+x = x-min(x)+1
+y = pfc$log.return[idx]
+mu = 0.018
+n = .74
+d = 0.021
+pp = as.numeric(x[y<0])
+pars = c(mu,n,d)
+Tmax = max(x)
+# These constraints ensures mu>0, n<1 and B>0:
+# ui0 = diag(c(1,-1,1))
+# ci0 = c(0,-1,0)
+(res = mle(pp, Tmax, pars))
+log_lik(pp, Tmax, pars)
+log_lik(pp, Tmax, res)
+# These constraints ensures mu>0, n<1 and B>0:
+ui0 = diag(c(1,-1,1))
+ci0 = c(0,-1,0)
+# These constraints ensures mu>0, n>0 and B>0:
+# ui0 = diag(c(1,1,1))
+# ci0 = c(0,0,0)
+# for(b in 1:length(boot)){
+#   print(mle(boot[[b]], Tmax, pars))
+# }
+datalib = "~/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Source/R/packages/bootha/data/"
+fn = paste0(datalib,"boot_embrechts.Rda")
+booter <- function(B, type, parametric, dt=1, ncores=8){
+tmp =  bootstrap_hawkes(pp, pars, Tmax, B, type, parametric,  dt, ncores)
+res = lapply(tmp, function(pp) mle(pp, Tmax, pars))
+res = matrix(unlist(res),nc=3, byrow=TRUE)
+colnames(res) = c("mu","n","B")
+return(res)
+}
+datalib = "~/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Source/R/packages/bootha/data/"
+fn = paste0(datalib,"boot_embrechts.Rda")
+B = 399
+boot = list()
+cat(paste0("\nBegin at: ", Sys.time()),"\n")
+boot[[1]] = booter(B, 'fib', parametric=TRUE); save(boot,file=fn); notify("Parameteric fib done!")
+library(bootha)
+library(misc)
+misc::clean_up()
+set.seed(1234)
+dji <- read.csv("~/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Source/R/packages/bootha/data/DJI.csv")
+dji$Date = as.Date(dji$Date)
+dji$log.return = c(NA,diff(log(dji$Close)))
+date.from = as.Date("1994-01-01")
+date.to = as.Date("2010-12-31")
+idx.dji = dji$Date>date.from & dji$Date < date.to
+idx = c(1,5,7,8)
+dji.tmp = dji[idx.dji,idx]
+pfc = dji.tmp
+names(pfc) = c("date", "close.dji", "volume.dji", "log.return.dji")
+qts = quantile(pfc$log.return, probs = c(.01,.99), na.rm = TRUE)
+qts = quantile(pfc$log.return, probs = c(.1,.9), na.rm = TRUE)
+idx = which(pfc$log.return < qts[1] | pfc$log.return > qts[2])
+x = as.numeric(pfc$date[idx])
+x = x-min(x)+1
+y = pfc$log.return[idx]
+mu = 0.018
+n = .74
+d = 0.021
+pp = as.numeric(x[y<0])
+pars = c(mu,n,d)
+Tmax = max(x)
+# These constraints ensures mu>0, n<1 and B>0:
+# ui0 = diag(c(1,-1,1))
+# ci0 = c(0,-1,0)
+(res = mle(pp, Tmax, pars))
+log_lik(pp, Tmax, pars)
+log_lik(pp, Tmax, res)
+# These constraints ensures mu>0, n<1 and B>0:
+ui0 = diag(c(1,-1,1))
+ci0 = c(0,-1,0)
+# These constraints ensures mu>0, n>0 and B>0:
+# ui0 = diag(c(1,1,1))
+# ci0 = c(0,0,0)
+# for(b in 1:length(boot)){
+#   print(mle(boot[[b]], Tmax, pars))
+# }
+datalib = "~/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Source/R/packages/bootha/data/"
+fn = paste0(datalib,"boot_embrechts.Rda")
+booter <- function(B, type, parametric, dt=1, ncores=8){
+tmp =  bootstrap_hawkes(pp, pars, Tmax, B, type, parametric,  dt, ncores)
+res = lapply(tmp, function(pp) mle(pp, Tmax, pars))
+res = matrix(unlist(res),nc=3, byrow=TRUE)
+colnames(res) = c("mu","n","B")
+return(res)
+}
+datalib = "~/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Source/R/packages/bootha/data/"
+fn = paste0(datalib,"boot_embrechts.Rda")
+B = 399
+boot = list()
+cat(paste0("\nBegin at: ", Sys.time()),"\n")
+boot[[1]] = booter(B, 'fib', parametric=TRUE); save(boot,file=fn); notify("Parameteric fib done!")
+cat(paste0("\nPar fib done at: ", Sys.time()),"\n")
+boot[[2]] = booter(B, 'fib', parametric=FALSE); save(boot,file=fn); notify("Non-parameteric fib done!")
+cat(paste0("\nNon-par fib done at: ", Sys.time()),"\n")
+boot[[3]] = booter(B, 'rib', parametric=TRUE); save(boot,file=fn); notify("Parameteric rib done!")
+cat(paste0("\nPar rib done at: ", Sys.time()),"\n")
+boot[[4]] = booter(B, 'rib', parametric=FALSE); save(boot,file=fn); notify("Non-parameteric rib done!")
+cat(paste0("\nNon-par fib done at: ", Sys.time()))
+names(boot) = c("par_fib","npar_fib","par_rib","npar_rib")
+boot_par_ci <- function(boot_in){
+tmp = t(rbind(apply(boot_in,2,mean),apply(boot_in,2,mean)-1.96*apply(boot_in,2,sd),apply(boot_in,2,mean)+1.96*apply(boot_in,2,sd)))
+colnames(tmp) = c("est","ci.lo","ci.hi")
+return(tmp)
+}
+pars
+boot_par_ci(boot$par_fib)
+boot_par_ci(boot$npar_fib)
+boot_par_ci(boot$par_rib)
+boot_par_ci(boot$npar_rib)
+library(bootha)
+library(misc)
+misc::clean_up()
+set.seed(1234)
+dji <- read.csv("~/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Source/R/packages/bootha/data/DJI.csv")
+dji$Date = as.Date(dji$Date)
+dji$log.return = c(NA,diff(log(dji$Close)))
+date.from = as.Date("1994-01-01")
+date.to = as.Date("2010-12-31")
+idx.dji = dji$Date>date.from & dji$Date < date.to
+idx = c(1,5,7,8)
+dji.tmp = dji[idx.dji,idx]
+pfc = dji.tmp
+names(pfc) = c("date", "close.dji", "volume.dji", "log.return.dji")
+qts = quantile(pfc$log.return, probs = c(.01,.99), na.rm = TRUE)
+qts = quantile(pfc$log.return, probs = c(.1,.9), na.rm = TRUE)
+idx = which(pfc$log.return < qts[1] | pfc$log.return > qts[2])
+x = as.numeric(pfc$date[idx])
+x = x-min(x)+1
+y = pfc$log.return[idx]
+mu = 0.018
+n = .74
+d = 0.021
+pp = as.numeric(x[y<0])
+pars = c(mu,n,d)
+Tmax = max(x)
+# These constraints ensures mu>0, n<1 and B>0:
+# ui0 = diag(c(1,-1,1))
+# ci0 = c(0,-1,0)
+(res = mle(pp, Tmax, pars))
+log_lik(pp, Tmax, pars)
+log_lik(pp, Tmax, res)
+# These constraints ensures mu>0, n<1 and B>0:
+ui0 = diag(c(1,-1,1))
+ci0 = c(0,-1,0)
+# These constraints ensures mu>0, n>0 and B>0:
+# ui0 = diag(c(1,1,1))
+# ci0 = c(0,0,0)
+# for(b in 1:length(boot)){
+#   print(mle(boot[[b]], Tmax, pars))
+# }
+datalib = "~/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Source/R/packages/bootha/data/"
+fn = paste0(datalib,"boot_embrechts.Rda")
+booter <- function(B, type, parametric, dt=1, ncores=8){
+tmp =  bootstrap_hawkes(pp, pars, Tmax, B, type, parametric,  dt, ncores)
+res = lapply(tmp, function(pp) mle(pp, Tmax, pars))
+res = matrix(unlist(res),nc=3, byrow=TRUE)
+colnames(res) = c("mu","n","B")
+return(res)
+}
+datalib = "~/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Source/R/packages/bootha/data/"
+fn = paste0(datalib,"boot_embrechts.Rda")
+B = 399
+boot = list()
+cat(paste0("\nBegin at: ", Sys.time()),"\n")
+boot[[1]] = booter(B, 'fib', parametric=TRUE); save(boot,file=fn); notify("Parameteric fib done!")
+cat(paste0("\nPar fib done at: ", Sys.time()),"\n")
+boot[[2]] = booter(B, 'fib', parametric=FALSE); save(boot,file=fn); notify("Non-parameteric fib done!")
+cat(paste0("\nNon-par fib done at: ", Sys.time()),"\n")
+boot[[3]] = booter(B, 'rib', parametric=TRUE); save(boot,file=fn); notify("Parameteric rib done!")
+cat(paste0("\nPar rib done at: ", Sys.time()),"\n")
+boot[[4]] = booter(B, 'rib', parametric=FALSE); save(boot,file=fn); notify("Non-parameteric rib done!")
+cat(paste0("\nNon-par fib done at: ", Sys.time()))
+names(boot) = c("par_fib","npar_fib","par_rib","npar_rib")
+boot_par_ci <- function(boot_in){
+tmp = t(rbind(apply(boot_in,2,mean),apply(boot_in,2,mean)-1.96*apply(boot_in,2,sd),apply(boot_in,2,mean)+1.96*apply(boot_in,2,sd)))
+colnames(tmp) = c("est","ci.lo","ci.hi")
+return(tmp)
+}
+pars
+boot_par_ci(boot$par_fib)
+boot_par_ci(boot$npar_fib)
+boot_par_ci(boot$par_rib)
+boot_par_ci(boot$npar_rib)
+pl <- function(x,b){
+x^(-1-b)
+}
+x = seq(0,10,.01)
+pl(x, .5)
+plot(x,pl(x, .5))
+dt = 0.1
+B = .5
+x = seq(0,10,dt)
+plot(x,pl(x, B))
+plot(x,pl(x, B), type='l')
+sum(pl(x))*dt
+sum(pl(x,B))*dt
+B = .1
+x = seq(0,10,dt)
+plot(x,pl(x, B), type='l')
+sum(pl(x,B))*dt
+pl(x,B)
+pl <- function(x,b){
+(x+1e-3)^(-1-b)
+}
+dt = 0.1
+B = .1
+x = seq(0,10,dt)
+plot(x,pl(x, B), type='l')
+sum(pl(x,B))*dt
+x = seq(0,100,dt)
+plot(x,pl(x, B), type='l')
+sum(pl(x,B))*dt
+library(bootha)
+library(bootha)
+library(misc)
+misc::clean_up()
+set.seed(1234)
+dji <- read.csv("~/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Source/R/packages/bootha/data/DJI.csv")
+dji$Date = as.Date(dji$Date)
+dji$log.return = c(NA,diff(log(dji$Close)))
+date.from = as.Date("1994-01-01")
+date.to = as.Date("2010-12-31")
+idx.dji = dji$Date>date.from & dji$Date < date.to
+idx = c(1,5,7,8)
+dji.tmp = dji[idx.dji,idx]
+pfc = dji.tmp
+names(pfc) = c("date", "close.dji", "volume.dji", "log.return.dji")
+qts = quantile(pfc$log.return, probs = c(.01,.99), na.rm = TRUE)
+qts = quantile(pfc$log.return, probs = c(.1,.9), na.rm = TRUE)
+idx = which(pfc$log.return < qts[1] | pfc$log.return > qts[2])
+x = as.numeric(pfc$date[idx])
+x = x-min(x)+1
+y = pfc$log.return[idx]
+mu = 0.018
+n = .74
+d = 0.021
+pp = as.numeric(x[y<0])
+pars = c(mu,n,d)
+Tmax = max(x)
+# These constraints ensures mu>0, n<1 and B>0:
+# ui0 = diag(c(1,-1,1))
+# ci0 = c(0,-1,0)
+(res = mle(pp, Tmax, pars))
+log_lik(pp, Tmax, pars)
+log_lik(pp, Tmax, res)
+# These constraints ensures mu>0, n<1 and B>0:
+ui0 = diag(c(1,-1,1))
+ci0 = c(0,-1,0)
+# These constraints ensures mu>0, n>0 and B>0:
+# ui0 = diag(c(1,1,1))
+# ci0 = c(0,0,0)
+# for(b in 1:length(boot)){
+#   print(mle(boot[[b]], Tmax, pars))
+# }
+datalib = "~/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Source/R/packages/bootha/data/"
+fn = paste0(datalib,"boot_embrechts.Rda")
+booter <- function(B, type, parametric, dt=1, ncores=8){
+tmp =  bootstrap_hawkes(pp, pars, Tmax, B, type, parametric,  dt, ncores)
+res = lapply(tmp, function(pp) mle(pp, Tmax, pars))
+res = matrix(unlist(res),nc=3, byrow=TRUE)
+colnames(res) = c("mu","n","B")
+return(res)
+}
+datalib = "~/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Source/R/packages/bootha/data/"
+fn = paste0(datalib,"boot_embrechts.Rda")
+B = 399
+boot = list()
+booter(5, 'rib', parametric=TRUE)
+booter(1, 'rib', parametric=TRUE)

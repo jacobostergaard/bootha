@@ -1,0 +1,512 @@
+lines(x, y*dt, col=add.alpha('tomato2',.75), lwd=2)
+points(z, rep(0,length(z)), pch=124, col=add.alpha('black',.5))
+# xlbl = paste("Days since", date.from)
+xlbl = "Year"
+ylbl = "Events per quarter (3 months)"
+col1 = add.alpha('steelblue',.5)
+col2 = add.alpha('tomato2',.75)
+col3 = add.alpha('black',.5)
+plot(h$mids+dt/2, h$counts, type='l', xlim=c(lo,hi), bty='n', col=col1, lwd=3, xlab="", ylab="", xaxt='n')
+mtext(xlbl, side=1, line=2.5, cex=.75)
+mtext(ylbl, side=2, line=2.5, cex=.75)
+tmp = as.Date(paste0(seq(1995,2010,5),"-01-01"))
+xat = (as.numeric(tmp)-as.numeric(as.Date(date.from)))/t_norm
+axis(side = 1, at=xat, labels=substr(tmp,1,4))
+lines(x, y*dt, col=col2, lwd=2)
+points(z, rep(0,length(z)), pch=124, col=col3)
+legend("topleft", c("Events", "Observed intensity", "Fitted intensity"), pch=c(124, NA, NA), lty=c(NA,1,1), col=c(col1, col2, col3))
+par(mfrow=c(3,2), mar=c(4,4,1,1), oma=c(0,0,0,0), bty='n')
+# Plot fitted model
+hi = Tmax+1
+lo = 0
+dt = (365.25*3/12)/t_norm  # time resolution to make a histogram like representation of the data (observed discrete time bins correspond to 1 day)
+x  = seq(0,Tmax,dt)
+y  = intensity(x, pp, pars)
+z  = pp[pp > lo & pp < hi]
+h  = hist(pp, breaks=seq(0,max(z)+dt,dt), plot=FALSE)
+# xlbl = paste("Days since", date.from)
+xlbl = "Year"
+ylbl = "Events per quarter (3 months)"
+col1 = add.alpha('steelblue',.5)
+col2 = add.alpha('tomato2',.75)
+col3 = add.alpha('black',.5)
+plot(h$mids+dt/2, h$counts, type='l', xlim=c(lo,hi), bty='n', col=col1, lwd=3, xlab="", ylab="", xaxt='n')
+mtext(xlbl, side=1, line=2.5, cex=.75)
+mtext(ylbl, side=2, line=2.5, cex=.75)
+tmp = as.Date(paste0(seq(1995,2010,5),"-01-01"))
+xat = (as.numeric(tmp)-as.numeric(as.Date(date.from)))/t_norm
+axis(side = 1, at=xat, labels=substr(tmp,1,4))
+lines(x, y*dt, col=col2, lwd=2)
+points(z, rep(0,length(z)), pch=124, col=col3)
+legend("topleft", c("Observed intensity", "Fitted intensity", "Observed events"), pch=c(124, NA, NA), lty=c(NA,1,1), col=c(col1, col2, col3), bty='n')
+par(mfrow=c(3,2), mar=c(4,4,1,1), oma=c(0,0,0,0), bty='n')
+# Plot fitted model
+hi = Tmax+1
+lo = 0
+dt = (365.25*3/12)/t_norm  # time resolution to make a histogram like representation of the data (observed discrete time bins correspond to 1 day)
+x  = seq(0,Tmax,dt)
+y  = intensity(x, pp, pars)
+z  = pp[pp > lo & pp < hi]
+h  = hist(pp, breaks=seq(0,max(z)+dt,dt), plot=FALSE)
+# xlbl = paste("Days since", date.from)
+xlbl = "Year"
+ylbl = "Events per quarter (3 months)"
+col1 = add.alpha('steelblue',.5)
+col2 = add.alpha('tomato2',.75)
+col3 = add.alpha('black',.5)
+plot(h$mids+dt/2, h$counts, type='l', xlim=c(lo,hi), bty='n', col=col1, lwd=3, xlab="", ylab="", xaxt='n')
+mtext(xlbl, side=1, line=2.5, cex=.75)
+mtext(ylbl, side=2, line=2.5, cex=.75)
+tmp = as.Date(paste0(seq(1995,2010,5),"-01-01"))
+xat = (as.numeric(tmp)-as.numeric(as.Date(date.from)))/t_norm
+axis(side = 1, at=xat, labels=substr(tmp,1,4))
+lines(x, y*dt, col=col2, lwd=2)
+points(z, rep(0,length(z)), pch=124, col=col3)
+legend("topleft", c("Observed intensity", "Fitted intensity", "Observed events"), pch=c(NA, NA, 124), lty=c(1,1,NA), col=c(col1, col2, col3), bty='n')
+a = qnorm(.975)
+mu.tmp = length(s)/max(s)
+mu.hi  = mu.tmp + a*sqrt(mu.tmp/length(s))
+mu.lo  = mu.tmp - a*sqrt(mu.tmp/length(s))
+plot(s,1:length(s), type='s', xlab="Rescaled time (t)", ylab="Time rescaled N(t)")
+abline(0,mu.tmp)
+abline((mu.hi-mu.tmp)*max(s),mu.tmp, lty=3)
+abline((mu.lo-mu.tmp)*max(s),mu.tmp, lty=3)
+a = qnorm(.975)
+mu.tmp = length(s)/max(s)
+mu.hi  = mu.tmp + a*sqrt(mu.tmp/length(s))
+mu.lo  = mu.tmp - a*sqrt(mu.tmp/length(s))
+col1 = add.alpha('black',.75)
+col2 = add.alpha('tomato2',.75)
+col3 = add.alpha('black',.5)
+plot(s,1:length(s), type='s', xlab="Rescaled time (t)", ylab="Time rescaled N(t)", col=col1)
+abline(0,mu.tmp)
+abline((mu.hi-mu.tmp)*max(s),mu.tmp, lty=3)
+abline((mu.lo-mu.tmp)*max(s),mu.tmp, lty=3)
+abline(0,mu.tmp, col=col2)
+yhi = (mu.hi-mu.tmp)*max(s)
+ylo = (mu.lo-mu.tmp)*max(s)
+ylo
+yhi
+Nt
+Nt = length(pp)
+polygon(c(0,Nt,Nt,0), c(yhi,Nt*yhi,Nt*ylo,ylo))
+polygon(c(0,Nt,Nt,0), c(yhi,Nt+yhi,Nt+ylo,ylo))
+polygon(c(0,Nt,Nt,0), c(yhi,Nt+yhi,Nt+ylo,ylo), border=NA, col=col3)
+# Plot s vs Poisson process bounds, this is in the Embrechts paper, but it is not too usefull...
+a = qnorm(.975)
+mu.tmp = length(s)/max(s)
+mu.hi  = mu.tmp + a*sqrt(mu.tmp/length(s))
+mu.lo  = mu.tmp - a*sqrt(mu.tmp/length(s))
+col1 = add.alpha('black',.75)
+col2 = add.alpha('tomato2',.75)
+col3 = add.alpha('steelblue',.5)
+plot(s,1:length(s), type='s', xlab="Rescaled time (t)", ylab="Time rescaled N(t)", col=col1)
+abline(0,mu.tmp, col=col2)
+yhi = (mu.hi-mu.tmp)*max(s)
+ylo = (mu.lo-mu.tmp)*max(s)
+Nt  = length(pp)
+polygon(c(0,Nt,Nt,0), c(yhi,Nt+yhi,Nt+ylo,ylo), border=NA, col=col3)
+plot(s,1:length(s), type='n', xlab="Rescaled time (t)", ylab="Time rescaled N(t)")
+yhi = (mu.hi-mu.tmp)*max(s)
+ylo = (mu.lo-mu.tmp)*max(s)
+Nt  = length(pp)
+polygon(c(0,Nt,Nt,0), c(yhi,Nt+yhi,Nt+ylo,ylo), border=NA, col=col3)
+abline(0,mu.tmp, col=col2)
+lines(s,1:length(s), type='s', col=col1)
+xlbl = "Rescaled time (t)"
+ylbl = "Time rescaled N(t)"
+plot(s,1:length(s), type='n', xlab="", ylab="")
+mtext(xlbl, side=1, line=2.5, cex=.75)
+mtext(ylbl, side=2, line=2.5, cex=.75)
+yhi = (mu.hi-mu.tmp)*max(s)
+ylo = (mu.lo-mu.tmp)*max(s)
+Nt  = length(pp)
+polygon(c(0,Nt,Nt,0), c(yhi,Nt+yhi,Nt+ylo,ylo), border=NA, col=col3)
+abline(0,mu.tmp, col=col2)
+lines(s,1:length(s), type='s', col=col1)
+# Plot quantile-quantile plots of w and v
+qqplot(w, rexp(100, 1), xlim=c(0,8), ylim=c(0,8), col=add.alpha('red',.85), pch=16, ann=FALSE); abline(0,1)
+mtext("Theoretical", 1, 2, cex=.75)
+mtext("Theoretical", 2, 2, cex=.75)
+xlbl = "Observed"
+ylbl = "Theoretical"
+# Plot quantile-quantile plots of w and v
+xlbl = "Observed"
+ylbl = "Theoretical"
+qqplot(w, rexp(100, 1), xlim=c(0,8), ylim=c(0,8), col=add.alpha('red',.85), pch=16, ann=FALSE); abline(0,1)
+mtext(xlbl, 2, 2, cex=.75)
+mtext(ylbl, 2, 2)
+xlbl = "Observed"
+ylbl = "Theoretical"
+qqplot(w, rexp(100, 1), xlim=c(0,8), ylim=c(0,8), col=add.alpha('red',.85), pch=16, ann=FALSE); abline(0,1)
+mtext(xlbl, side=1, line=2.5, cex=.75)
+mtext(ylbl, side=2, line=2.5, cex=.75)
+# Plot quantile-quantile plots of w and v
+xlbl = "Observed"
+ylbl = "Theoretical"
+qqplot(w, rexp(100, 1), xlim=c(0,8), ylim=c(0,8), col=add.alpha('red',.85), pch=16, ann=FALSE); abline(0,1)
+mtext(xlbl, side=1, line=2.5, cex=.75)
+mtext(ylbl, side=2, line=2.5, cex=.75)
+qqplot(v, rexp(100, 1), xlim=c(0,8), ylim=c(0,8), col=add.alpha('red',.85), pch=16, ann=FALSE); abline(0,1)
+mtext(xlbl, side=1, line=2.5, cex=.75)
+mtext(ylbl, side=2, line=2.5, cex=.75)
+mlbl = expression(Lambda~"("~tau~")")
+mtext(mlbl, side=3, line=2, cex=.75)
+?expression
+mlbl = expression(Lambda,"("~tau~")")
+mtext(mlbl, side=3, line=2, cex=.75)
+mlbl = expression(Lambda,"(",tau,")")
+mtext(mlbl, side=3, line=2, cex=.75)
+xlbl = "Observed"
+ylbl = "Theoretical"
+qqplot(w, rexp(100, 1), xlim=c(0,8), ylim=c(0,8), col=add.alpha('red',.85), pch=16, ann=FALSE); abline(0,1)
+mtext(xlbl, side=1, line=2.5, cex=.75)
+mtext(ylbl, side=2, line=2.5, cex=.75)
+layout(1)
+layout(1)
+xlbl = "Observed"
+ylbl = "Theoretical"
+qqplot(w, rexp(100, 1), xlim=c(0,8), ylim=c(0,8), col=add.alpha('red',.85), pch=16, ann=FALSE); abline(0,1)
+mtext(xlbl, side=1, line=2.5, cex=.75)
+mtext(ylbl, side=2, line=2.5, cex=.75)
+layout(1)
+xlbl = "Observed"
+ylbl = "Theoretical"
+qqplot(w, rexp(100, 1), xlim=c(0,8), ylim=c(0,8), col=add.alpha('red',.85), pch=16, ann=FALSE); abline(0,1)
+mtext(xlbl, side=1, line=2.5, cex=.75)
+mtext(ylbl, side=2, line=2.5, cex=.75)
+mlbl = expression(Lambda,"(",tau,")")
+mtext(mlbl, side=3, line=2, cex=.75)
+mtext(mlbl, side=3, line=0, cex=.75)
+mlbl = expression(Lambda,"(",tau,")", sep="")
+mtext(mlbl, side=3, line=0, cex=.75)
+layout(1)
+xlbl = "Observed"
+ylbl = "Theoretical"
+qqplot(w, rexp(100, 1), xlim=c(0,8), ylim=c(0,8), col=add.alpha('red',.85), pch=16, ann=FALSE); abline(0,1)
+mtext(xlbl, side=1, line=2.5, cex=.75)
+mtext(ylbl, side=2, line=2.5, cex=.75)
+mlbl = expression(Lambda,"(",tau,")", sep="")
+mtext(mlbl, side=3, line=0, cex=.75)
+mlbl = expression(Lambda~"("~tau~")")
+mtext(mlbl, side=3, line=0, cex=.75)
+layout(1)
+xlbl = "Observed"
+ylbl = "Theoretical"
+qqplot(w, rexp(100, 1), xlim=c(0,8), ylim=c(0,8), col=add.alpha('red',.85), pch=16, ann=FALSE); abline(0,1)
+mtext(xlbl, side=1, line=2.5, cex=.75)
+mtext(ylbl, side=2, line=2.5, cex=.75)
+mlbl = expression(Lambda~"("~tau~")")
+mtext(mlbl, side=3, line=0, cex=.75)
+mlbl = expression(Lambda~(tau))
+mtext(mlbl, side=3, line=0, cex=.75)
+layout(1)
+xlbl = "Observed"
+ylbl = "Theoretical"
+qqplot(w, rexp(100, 1), xlim=c(0,8), ylim=c(0,8), col=add.alpha('red',.85), pch=16, ann=FALSE); abline(0,1)
+mtext(xlbl, side=1, line=2.5, cex=.75)
+mtext(ylbl, side=2, line=2.5, cex=.75)
+mlbl = expression(Lambda~(tau))
+mtext(mlbl, side=3, line=0, cex=.75)
+layout(1)
+xlbl = "Observed"
+ylbl = "Theoretical"
+qqplot(w, rexp(100, 1), xlim=c(0,8), ylim=c(0,8), col=add.alpha('red',.85), pch=16, ann=FALSE); abline(0,1)
+mtext(xlbl, side=1, line=2.5, cex=.75)
+mtext(ylbl, side=2, line=2.5, cex=.75)
+mlbl = expression(Lambda(tau))
+mtext(mlbl, side=3, line=0, cex=.75)
+layout(1)
+xlbl = "Observed"
+ylbl = "Theoretical"
+qqplot(w, rexp(100, 1), xlim=c(0,8), ylim=c(0,8), col=add.alpha('red',.85), pch=16, ann=FALSE); abline(0,1)
+mtext(xlbl, side=1, line=2.5, cex=.75)
+mtext(ylbl, side=2, line=2.5, cex=.75)
+mlbl = expression(Lambda(t_[k]-t_[k-1]))
+mtext(mlbl, side=3, line=0, cex=.75)
+layout(1)
+xlbl = "Observed"
+ylbl = "Theoretical"
+qqplot(w, rexp(100, 1), xlim=c(0,8), ylim=c(0,8), col=add.alpha('red',.85), pch=16, ann=FALSE); abline(0,1)
+mtext(xlbl, side=1, line=2.5, cex=.75)
+mtext(ylbl, side=2, line=2.5, cex=.75)
+mlbl = expression(Lambda(t[k]-t[k-1]))
+mtext(mlbl, side=3, line=0, cex=.75)
+layout(1)
+xlbl = "Observed"
+ylbl = "Theoretical"
+qqplot(w, rexp(100, 1), xlim=c(0,8), ylim=c(0,8), col=add.alpha('red',.85), pch=16, ann=FALSE); abline(0,1)
+mtext(xlbl, side=1, line=2.5, cex=.75)
+mtext(ylbl, side=2, line=2.5, cex=.75)
+mlbl = expression(w=Lambda(t[k]-t[k-1]))
+mtext(mlbl, side=3, line=0, cex=.75)
+layout(1)
+xlbl = "Observed"
+ylbl = "Theoretical"
+qqplot(w, rexp(100, 1), xlim=c(0,8), ylim=c(0,8), col=add.alpha('red',.85), pch=16, ann=FALSE); abline(0,1)
+mtext(xlbl, side=1, line=2.5, cex=.75)
+mtext(ylbl, side=2, line=2.5, cex=.75)
+mlbl = expression(w==Lambda(t[k]-t[k-1]))
+mtext(mlbl, side=3, line=0, cex=.75)
+layout(1)
+xlbl = "Observed"
+ylbl = "Theoretical"
+qqplot(w, rexp(100, 1), xlim=c(0,8), ylim=c(0,8), col=add.alpha('red',.85), pch=16, ann=FALSE); abline(0,1)
+mtext(xlbl, side=1, line=2.5, cex=.75)
+mtext(ylbl, side=2, line=2.5, cex=.75)
+# mlbl = expression(w[k]==Lambda(t[k]-t[k-1]))
+# mtext(mlbl, side=3, line=0, cex=.75)
+mlbl = expression(v[k]==w[k]/bar(w))
+mtext(mlbl, side=3, line=0, cex=.75)
+mlbl
+layout(1)
+xlbl = "Observed"
+ylbl = "Theoretical"
+qqplot(w, rexp(100, 1), xlim=c(0,8), ylim=c(0,8), col=add.alpha('red',.85), pch=16, ann=FALSE); abline(0,1)
+mtext(xlbl, side=1, line=2.5, cex=.75)
+mtext(ylbl, side=2, line=2.5, cex=.75)
+# mlbl = expression(w[k]==Lambda(t[k]-t[k-1]))
+# mtext(mlbl, side=3, line=0, cex=.75)
+mlbl = expression(v[k]==w[k]/bar(w))
+mlbl = paste0("Tres",mlbl)
+mtext(mlbl, side=3, line=0, cex=.75)
+layout(1)
+xlbl = "Observed"
+ylbl = "Theoretical"
+qqplot(w, rexp(100, 1), xlim=c(0,8), ylim=c(0,8), col=add.alpha('red',.85), pch=16, ann=FALSE); abline(0,1)
+mtext(xlbl, side=1, line=2.5, cex=.75)
+mtext(ylbl, side=2, line=2.5, cex=.75)
+# mlbl = expression(w[k]==Lambda(t[k]-t[k-1]))
+# mtext(mlbl, side=3, line=0, cex=.75)
+mlbl = expression("Time rescaled",v[k]==w[k]/bar(w))
+mlbl =
+mtext(mlbl, side=3, line=0, cex=.75)
+layout(1)
+xlbl = "Observed"
+ylbl = "Theoretical"
+qqplot(w, rexp(100, 1), xlim=c(0,8), ylim=c(0,8), col=add.alpha('red',.85), pch=16, ann=FALSE); abline(0,1)
+mtext(xlbl, side=1, line=2.5, cex=.75)
+mtext(ylbl, side=2, line=2.5, cex=.75)
+# mlbl = expression(w[k]==Lambda(t[k]-t[k-1]))
+# mtext(mlbl, side=3, line=0, cex=.75)
+mlbl = expression("Time rescaled"~v[k]==w[k]/bar(w))
+mtext(mlbl, side=3, line=0, cex=.75)
+layout(1)
+xlbl = "Observed"
+ylbl = "Theoretical"
+qqplot(w, rexp(100, 1), xlim=c(0,8), ylim=c(0,8), col=add.alpha('red',.85), pch=16, ann=FALSE); abline(0,1)
+mtext(xlbl, side=1, line=2.5, cex=.75)
+mtext(ylbl, side=2, line=2.5, cex=.75)
+# mlbl = expression(w[k]==Lambda(t[k]-t[k-1]))
+# mtext(mlbl, side=3, line=0, cex=.75)
+mlbl = expression("Rescaled time transformed waiting times"~v[k]==w[k]/bar(w))
+mtext(mlbl, side=3, line=0, cex=.75)
+layout(1)
+xlbl = "Observed"
+ylbl = "Theoretical"
+qqplot(w, rexp(100, 1), xlim=c(0,8), ylim=c(0,8), col=add.alpha('red',.85), pch=16, ann=FALSE); abline(0,1)
+mtext(xlbl, side=1, line=2.5, cex=.75)
+mtext(ylbl, side=2, line=2.5, cex=.75)
+mlbl = expression("Time transformed waiting times"~w[k]==Lambda(t[k]-t[k-1]))
+mtext(mlbl, side=3, line=0, cex=.75)
+# Analysis of DJI
+library(bootha)
+library(misc)
+misc::clean_up()
+set.seed(1234)
+plotlib = "~/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Source/R/packages/bootha/plots/"
+datalib = "~/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Source/R/packages/bootha/data/"
+# Make point process of Dow Jones Index log return exceedances
+fn  = paste0(datalib,"DJI.csv")
+dji = read.csv(fn)
+dji$Date = as.Date(dji$Date)
+dji$log.return = c(NA,diff(log(dji$Close)))
+dji = dji[,c(1,5,7,8)] # relevant columns
+date.from  = as.Date("1994-01-01")
+date.to    = as.Date("2010-12-31")
+idx        = dji$Date>date.from & dji$Date < date.to # same period as in Embrechts paper
+names(dji) = c("date", "close", "volume", "log.return")
+dji        = dji[idx,]
+qts = quantile(dji$log.return, probs = c(.1,.9), na.rm = TRUE)
+idx = which(dji$log.return < qts[1] | dji$log.return > qts[2]) # find days where the log return exceeds the .1 and .9 quantiles
+x    = as.numeric(dji$date[idx])
+x    = x-min(x)+1
+y    = dji$log.return[idx]
+pars = c(0.018,0.74,0.021) # Parameters from the Embrechts paper
+Tmax = max(x)
+dji  = list(pp.neg = as.numeric(x[y<0]), pp.pos = as.numeric(x[y>0]))
+# Estimate MLE and rescaled time transformed waiting times
+pp   = dji$pp.neg # choose events of negative exceedances
+t_norm = 14
+t_norm = max(x)/length(pp)
+pp = pp/t_norm
+Tmax = Tmax/t_norm
+pars[c(1,3)]=pars[c(1,3)]*t_norm
+mle  = mle(pp, Tmax, pars, dt=0, grad = function(x) exp_gradient(pp, Tmax, x), hessian=FALSE)
+dt = 0.1 # time resolution for integrating the intensity
+x  = seq(0,Tmax,dt)
+L  = integrated_intensity(x, pp, mle)
+s  = interpol(cbind(x,L), x=pp) # time transformed event times
+w  = c(s[1],diff(s))            # time transformed waiting times (first waiting time equals s[1])
+v  = w/mean(w);mean(w);sd(w)    # rescaled (mean corrected) time transformed waiting times
+# Model diagnostics: evaluate model fit based on w and v
+par(mfrow=c(3,2), mar=c(4,4,1,1), oma=c(0,0,0,0), bty='n')
+# Plot fitted model
+hi = Tmax+1
+lo = 0
+dt = (365.25*3/12)/t_norm  # time resolution to make a histogram like representation of the data (observed discrete time bins correspond to 1 day)
+x  = seq(0,Tmax,dt)
+y  = intensity(x, pp, pars)
+z  = pp[pp > lo & pp < hi]
+h  = hist(pp, breaks=seq(0,max(z)+dt,dt), plot=FALSE)
+# xlbl = paste("Days since", date.from)
+xlbl = "Year"
+ylbl = "Events per quarter (3 months)"
+col1 = add.alpha('steelblue',.5)
+col2 = add.alpha('tomato2',.75)
+col3 = add.alpha('black',.5)
+plot(h$mids+dt/2, h$counts, type='l', xlim=c(lo,hi), bty='n', col=col1, lwd=3, xlab="", ylab="", xaxt='n')
+mtext(xlbl, side=1, line=2.5, cex=.75)
+mtext(ylbl, side=2, line=2.5, cex=.75)
+tmp = as.Date(paste0(seq(1995,2010,5),"-01-01"))
+xat = (as.numeric(tmp)-as.numeric(as.Date(date.from)))/t_norm
+axis(side = 1, at=xat, labels=substr(tmp,1,4))
+lines(x, y*dt, col=col2, lwd=2)
+points(z, rep(0,length(z)), pch=124, col=col3)
+legend("topleft", c("Observed intensity", "Fitted intensity", "Observed events"), pch=c(NA, NA, 124), lty=c(1,1,NA), col=c(col1, col2, col3), bty='n')
+# Plot s vs Poisson process bounds, this is in the Embrechts paper, but it is not too usefull...
+a = qnorm(.975)
+mu.tmp = length(s)/max(s)
+mu.hi  = mu.tmp + a*sqrt(mu.tmp/length(s))
+mu.lo  = mu.tmp - a*sqrt(mu.tmp/length(s))
+col1 = add.alpha('black',.75)
+col2 = add.alpha('tomato2',.75)
+col3 = add.alpha('steelblue',.5)
+xlbl = "Rescaled time (t)"
+ylbl = "Time rescaled N(t)"
+plot(s,1:length(s), type='n', xlab="", ylab="")
+mtext(xlbl, side=1, line=2.5, cex=.75)
+mtext(ylbl, side=2, line=2.5, cex=.75)
+yhi = (mu.hi-mu.tmp)*max(s)
+ylo = (mu.lo-mu.tmp)*max(s)
+Nt  = length(pp)
+polygon(c(0,Nt,Nt,0), c(yhi,Nt+yhi,Nt+ylo,ylo), border=NA, col=col3)
+abline(0,mu.tmp, col=col2)
+lines(s,1:length(s), type='s', col=col1)
+# abline((mu.lo-mu.tmp)*max(s),mu.tmp, lty=3)
+# abline((mu.lo-mu.tmp)*max(s),mu.tmp, lty=3)
+# Plot quantile-quantile plots of w and v
+xlbl = "Observed"
+ylbl = "Theoretical"
+qqplot(w, rexp(100, 1), xlim=c(0,8), ylim=c(0,8), col=add.alpha('red',.85), pch=16, ann=FALSE); abline(0,1)
+mtext(xlbl, side=1, line=2.5, cex=.75)
+mtext(ylbl, side=2, line=2.5, cex=.75)
+mlbl = expression("Time transformed waiting times"~w[k]==Lambda(t[k]-t[k-1]))
+mtext(mlbl, side=3, line=0, cex=.75)
+qqplot(v, rexp(100, 1), xlim=c(0,8), ylim=c(0,8), col=add.alpha('red',.85), pch=16, ann=FALSE); abline(0,1)
+mtext(xlbl, side=1, line=2.5, cex=.75)
+mtext(ylbl, side=2, line=2.5, cex=.75)
+mlbl = expression("Rescaled time transformed waiting times"~v[k]==w[k]/bar(w))
+mtext(mlbl, side=3, line=0, cex=.75)
+# Analysis of DJI
+library(bootha)
+library(misc)
+misc::clean_up()
+set.seed(1234)
+plotlib = "~/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Source/R/packages/bootha/plots/"
+datalib = "~/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Source/R/packages/bootha/data/"
+# Make point process of Dow Jones Index log return exceedances
+fn  = paste0(datalib,"DJI.csv")
+dji = read.csv(fn)
+dji$Date = as.Date(dji$Date)
+dji$log.return = c(NA,diff(log(dji$Close)))
+dji = dji[,c(1,5,7,8)] # relevant columns
+date.from  = as.Date("1994-01-01")
+date.to    = as.Date("2010-12-31")
+idx        = dji$Date>date.from & dji$Date < date.to # same period as in Embrechts paper
+names(dji) = c("date", "close", "volume", "log.return")
+dji        = dji[idx,]
+qts = quantile(dji$log.return, probs = c(.1,.9), na.rm = TRUE)
+idx = which(dji$log.return < qts[1] | dji$log.return > qts[2]) # find days where the log return exceeds the .1 and .9 quantiles
+x    = as.numeric(dji$date[idx])
+x    = x-min(x)+1
+y    = dji$log.return[idx]
+pars = c(0.018,0.74,0.021) # Parameters from the Embrechts paper
+Tmax = max(x)
+dji  = list(pp.neg = as.numeric(x[y<0]), pp.pos = as.numeric(x[y>0]))
+# Estimate MLE and rescaled time transformed waiting times
+pp   = dji$pp.neg # choose events of negative exceedances
+t_norm = 14
+t_norm = max(x)/length(pp)
+pp = pp/t_norm
+Tmax = Tmax/t_norm
+pars[c(1,3)]=pars[c(1,3)]*t_norm
+mle  = mle(pp, Tmax, pars, dt=0, grad = function(x) exp_gradient(pp, Tmax, x), hessian=FALSE)
+dt = 0.1 # time resolution for integrating the intensity
+x  = seq(0,Tmax,dt)
+L  = integrated_intensity(x, pp, mle)
+s  = interpol(cbind(x,L), x=pp) # time transformed event times
+w  = c(s[1],diff(s))            # time transformed waiting times (first waiting time equals s[1])
+v  = w/mean(w);mean(w);sd(w)    # rescaled (mean corrected) time transformed waiting times
+# Model diagnostics: evaluate model fit based on w and v
+par(mfrow=c(3,2), mar=c(4,4,1,1), oma=c(0,0,0,0), bty='n')
+# Plot fitted model
+hi = Tmax+1
+lo = 0
+dt = (365.25*3/12)/t_norm  # time resolution to make a histogram like representation of the data (observed discrete time bins correspond to 1 day)
+x  = seq(0,Tmax,dt)
+y  = intensity(x, pp, pars)
+z  = pp[pp > lo & pp < hi]
+h  = hist(pp, breaks=seq(0,max(z)+dt,dt), plot=FALSE)
+# xlbl = paste("Days since", date.from)
+xlbl = "Year"
+ylbl = "Events per quarter (3 months)"
+col1 = add.alpha('steelblue',.5)
+col2 = add.alpha('tomato2',.75)
+col3 = add.alpha('black',.5)
+plot(h$mids+dt/2, h$counts, type='l', xlim=c(lo,hi), bty='n', col=col1, lwd=3, xlab="", ylab="", xaxt='n')
+mtext(xlbl, side=1, line=2.5, cex=.75)
+mtext(ylbl, side=2, line=2.5, cex=.75)
+tmp = as.Date(paste0(seq(1995,2010,5),"-01-01"))
+xat = (as.numeric(tmp)-as.numeric(as.Date(date.from)))/t_norm
+axis(side = 1, at=xat, labels=substr(tmp,1,4))
+lines(x, y*dt, col=col2, lwd=2)
+points(z, rep(0,length(z)), pch=124, col=col3)
+legend("topleft", c("Observed intensity", "Fitted intensity", "Observed events"), pch=c(NA, NA, 124), lty=c(1,1,NA), col=c(col1, col2, col3), bty='n')
+# Plot s vs Poisson process bounds, this is in the Embrechts paper, but it is not too usefull...
+a = qnorm(.975)
+mu.tmp = length(s)/max(s)
+mu.hi  = mu.tmp + a*sqrt(mu.tmp/length(s))
+mu.lo  = mu.tmp - a*sqrt(mu.tmp/length(s))
+col1 = add.alpha('black',.75)
+col2 = add.alpha('tomato2',.75)
+col3 = add.alpha('steelblue',.5)
+xlbl = expression("Rescaled time"~Lambda(t))
+ylbl = expression("Time rescaled process"~ N(Lambda(t)))
+plot(s,1:length(s), type='n', xlab="", ylab="")
+mtext(xlbl, side=1, line=2.5, cex=.75)
+mtext(ylbl, side=2, line=2.5, cex=.75)
+yhi = (mu.hi-mu.tmp)*max(s)
+ylo = (mu.lo-mu.tmp)*max(s)
+Nt  = length(pp)
+polygon(c(0,Nt,Nt,0), c(yhi,Nt+yhi,Nt+ylo,ylo), border=NA, col=col3)
+abline(0,mu.tmp, col=col2)
+lines(s,1:length(s), type='s', col=col1)
+# abline((mu.lo-mu.tmp)*max(s),mu.tmp, lty=3)
+# abline((mu.lo-mu.tmp)*max(s),mu.tmp, lty=3)
+# Plot quantile-quantile plots of w and v
+xlbl = "Observed"
+ylbl = "Theoretical"
+qqplot(w, rexp(100, 1), xlim=c(0,8), ylim=c(0,8), col=add.alpha('red',.85), pch=16, ann=FALSE); abline(0,1)
+mtext(xlbl, side=1, line=2.5, cex=.75)
+mtext(ylbl, side=2, line=2.5, cex=.75)
+mlbl = expression("Time transformed waiting times"~w[k]==Lambda(t[k]-t[k-1]))
+mtext(mlbl, side=3, line=0, cex=.75)
+qqplot(v, rexp(100, 1), xlim=c(0,8), ylim=c(0,8), col=add.alpha('red',.85), pch=16, ann=FALSE); abline(0,1)
+mtext(xlbl, side=1, line=2.5, cex=.75)
+mtext(ylbl, side=2, line=2.5, cex=.75)
+mlbl = expression("Rescaled time transformed waiting times"~v[k]==w[k]/bar(w))
+mtext(mlbl, side=3, line=0, cex=.75)
+# Kolmogorov-Smirnov test and plots for the time transformed waiting times
+ks_plot(w)
+ks_plot(v)

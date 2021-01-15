@@ -1,0 +1,10 @@
+
+
+
+layout(1)
+
+plot(bin(pp, 14))
+bootha::mle(pp/14, Tmax/14, pars)
+
+
+5126000/120

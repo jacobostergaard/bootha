@@ -1,0 +1,54 @@
+library(bootha)
+library(misc)
+misc::clean_up()
+set.seed(1234)
+dji <- read.csv("~/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Source/R/packages/bootha/data/DJI.csv")
+dji$Date = as.Date(dji$Date)
+dji$log.return = c(NA,diff(log(dji$Close)))
+date.from = as.Date("1994-01-01")
+date.to = as.Date("2010-12-31")
+idx.dji = dji$Date>date.from & dji$Date < date.to
+idx = c(1,5,7,8)
+dji.tmp = dji[idx.dji,idx]
+pfc = dji.tmp
+names(pfc) = c("date", "close.dji", "volume.dji", "log.return.dji")
+qts = quantile(pfc$log.return, probs = c(.01,.99), na.rm = TRUE)
+qts = quantile(pfc$log.return, probs = c(.1,.9), na.rm = TRUE)
+idx = which(pfc$log.return < qts[1] | pfc$log.return > qts[2])
+x = as.numeric(pfc$date[idx])
+x = x-min(x)+1
+y = pfc$log.return[idx]
+mu = 0.018
+n = .74
+d = 0.021
+pp = as.numeric(x[y<0])
+pars = c(mu,n,d)
+Tmax = max(x)
+# These constraints ensures mu>0, n<1 and B>0:
+# ui0 = diag(c(1,-1,1))
+# ci0 = c(0,-1,0)
+(res = mle(pp, Tmax, pars))
+log_lik(pp, Tmax, pars)
+log_lik(pp, Tmax, res)
+# These constraints ensures mu>0, n<1 and B>0:
+ui0 = diag(c(1,-1,1))
+ci0 = c(0,-1,0)
+# These constraints ensures mu>0, n>0 and B>0:
+# ui0 = diag(c(1,1,1))
+# ci0 = c(0,0,0)
+# for(b in 1:length(boot)){
+#   print(mle(boot[[b]], Tmax, pars))
+# }
+datalib = "~/Library/Mobile Documents/com~apple~CloudDocs/GitHub/Source/R/packages/bootha/data/"
+fn = paste0(datalib,"boot_embrechts.Rda")
+booter <- function(B, type, parametric, dt=1, ncores=8){
+tmp =  bootstrap_hawkes(pp, pars, Tmax, B, type, parametric,  dt, ncores)
+res = lapply(tmp, function(pp) mle(pp, Tmax, pars))
+res = matrix(unlist(res),nc=3, byrow=TRUE)
+colnames(res) = c("mu","n","B")
+return(res)
+}
+booter(3, 'fib', parametric=TRUE)
+booter(3, 'rib', parametric=TRUE)
+b = c(1,1,0,0)
+b[b!=0]

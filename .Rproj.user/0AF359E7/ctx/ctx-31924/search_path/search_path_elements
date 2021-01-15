@@ -1,0 +1,14 @@
+.GlobalEnv
+package:parallel
+package:misc
+package:bootha
+package:Rcpp
+tools:rstudio
+package:stats
+package:graphics
+package:grDevices
+package:utils
+package:datasets
+package:methods
+Autoloads
+package:base
